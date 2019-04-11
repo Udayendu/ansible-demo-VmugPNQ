@@ -1,0 +1,42 @@
+---
+# Delete a VM Ansible 'vmware_guest' module
+- name: Delete VM the virtual machine
+  vmware_guest:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    cluster: '{{ deploy_vsphere_cluster }}'
+    resource_pool: '{{ deploy_resource_pool }}'
+    folder: '{{ deploy_vsphere_folder }}'
+    name: '{{ inventory_hostname }}'
+    force: yes
+    state: absent
+  delegate_to: localhost
+
+# Delete a VM folder
+- name: Delete the VM Folder
+  vcenter_folder:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    folder_name: '{{ deploy_vsphere_folder }}'
+    folder_type: vm
+    state: absent
+  delegate_to: localhost
+
+# Delete a Resource Pool
+- name: Delete the Resource Pool
+  vmware_resource_pool:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    cluster: '{{ deploy_vsphere_cluster }}'
+    resource_pool: '{{ deploy_resource_pool }}'
+    state: absent
+  delegate_to: localhost

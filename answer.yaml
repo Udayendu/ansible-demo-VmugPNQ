@@ -1,0 +1,20 @@
+# vCenter information
+deploy_vsphere_host: 'demovcenter.example.com'
+deploy_vsphere_user: 'administrator@vsphere.local'
+deploy_vsphere_datacenter: 'Demo-Datacenter'
+deploy_vsphere_folder: 'Ansible-Demo'
+deploy_vsphere_datastore: 'datastore'
+deploy_vsphere_cluster: 'Demo-Cluster'
+deploy_resource_pool: 'Ansible-Demo-Uskar'
+
+# Guest Information
+guest_network: 'VM Network'
+guest_netmask: '255.255.255.0'
+guest_gateway: '192.168.122.1'
+guest_dns_server: '8.8.8.8'
+guest_domain_name: 'example.com'
+guest_id: 'rhel7_64Guest'
+guest_memory: '1024'
+guest_vcpu: '1'
+guest_template: 'rhel7-template'
+

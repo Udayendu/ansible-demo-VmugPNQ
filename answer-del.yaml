@@ -1,0 +1,8 @@
+# vCenter information
+deploy_vsphere_host: 'demovcenter.example.com'
+deploy_vsphere_user: 'administrator@vsphere.local'
+deploy_vsphere_datacenter: 'Demo-Datacenter'
+deploy_vsphere_folder: 'Ansible-Demo'
+deploy_vsphere_datastore: 'datastore'
+deploy_vsphere_cluster: 'Demo-Cluster'
+deploy_resource_pool: 'Ansible-Demo-Uskar'

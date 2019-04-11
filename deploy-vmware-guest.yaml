@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: "deploy_vsphere_password"
+      prompt: "Password for 'administrator@vsphere.local' user in [https://demovcenter.example.com]"
+      private: yes
+    - name: "guest_custom_ip"
+      prompt: "Enter the guest IP address like [192.168.122.10]"
+      private: no
+    - name: "guest_fqdn"
+      prompt: "Enter the guest short FQDN like [linpubXXX]"
+      private: no
+    - name: "inventory_hostname"
+      prompt: "Enter the inventory name like [122.10-linpub010-rhel7-uskar]"
+      private: no
+  vars_files:
+    - answer.yaml
+  roles:
+     - vm-deploy

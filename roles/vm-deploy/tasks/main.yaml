@@ -1,0 +1,74 @@
+---
+# Create a VM folder
+- name: Create a VM Folder on the given datacenter
+  vcenter_folder:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    folder_name: '{{ deploy_vsphere_folder }}'
+    folder_type: vm
+    state: present
+  delegate_to: localhost
+  register: vm_folder_creation_result  
+
+# Create a Resource Pool
+- name: Create a Resource Pool
+  vmware_resource_pool:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    cluster: '{{ deploy_vsphere_cluster }}'
+    resource_pool: '{{ deploy_resource_pool }}'
+    mem_shares: normal
+    mem_limit: -1
+    mem_reservation: 0
+    mem_expandable_reservations: yes
+    cpu_shares: normal
+    cpu_limit: -1
+    cpu_reservation: 0
+    cpu_expandable_reservations: yes
+    state: present
+  delegate_to: localhost
+  register: vm_rp_creation_result  
+
+# Deploy a VM from a template using Ansible 'vmware_guest' module
+- name: Deploy VM from template for Demo
+  vmware_guest:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    validate_certs: no
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    cluster: '{{ deploy_vsphere_cluster }}'
+    resource_pool: '{{ deploy_resource_pool }}'
+    folder: '{{ deploy_vsphere_folder }}'
+    name: '{{ inventory_hostname }}'
+    state: poweredon
+    guest_id: '{{ guest_id }}'
+    disk:
+    - size_gb: '{{ disk_size | default(30) }}'
+      type: thin
+      datastore: '{{ deploy_vsphere_datastore }}'
+    networks:
+    - name: '{{ guest_network }}'
+      ip: '{{ guest_custom_ip }}'
+      netmask: '{{ guest_netmask }}'
+      gateway: '{{ guest_gateway }}'
+      dns_servers:
+      - '{{ guest_dns_server }}'
+    hardware:
+      memory_mb: '{{ guest_memory | default(1024)}}'
+      num_cpus: '{{ guest_vcpu }}'
+    customization:
+      dns_servers:
+      - '{{ guest_dns_server }}'
+      domain : '{{ guest_domain_name }}'
+      hostname: '{{ guest_fqdn }}'
+    template: '{{ guest_template }}'
+    wait_for_ip_address: yes
+  delegate_to: localhost
+  register: deploy_vm

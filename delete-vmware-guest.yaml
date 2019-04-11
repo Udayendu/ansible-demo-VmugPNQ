@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: "deploy_vsphere_password" 
+      prompt: "Password for 'administrator@vsphere.local' user in [https://demovcenter.example.com]"
+      private: yes
+    - name: "inventory_hostname"
+      prompt: "Enter the inventory name"
+      private: no
+  vars_files:
+    - answer-del.yaml
+  roles:
+     - vm-delete
