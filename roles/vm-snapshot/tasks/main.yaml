@@ -1,0 +1,15 @@
+# Take a Snapshot of vmware guest
+- name: To take a snapshot of vmware guest
+  vmware_guest_snapshot:
+    hostname: '{{ deploy_vsphere_host }}'
+    username: '{{ deploy_vsphere_user }}'
+    password: '{{ deploy_vsphere_password }}'
+    datacenter: '{{ deploy_vsphere_datacenter }}'
+    validate_certs: no
+    name: '{{ inventory_hostname }}'
+    snapshot_name: '{{ vm_snapshot_name }}'
+    state: present
+    folder: '{{ deploy_vsphere_folder }}'
+    memory_dump: True
+  delegate_to: localhost
+

@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: "deploy_vsphere_password" 
+      prompt: "Password for 'administrator@vsphere.local' user in [https://demovcenter.example.com]"
+      private: yes
+    - name: "inventory_hostname"
+      prompt: "To take snapshot enter the VM name"
+      private: no
+    - name: "vm_snapshot_name"
+      prompt: "Enter the snapshot name"
+      private: no  
+  vars_files:
+    - snap-answer.yaml
+  roles:
+     - vm-snapshot
