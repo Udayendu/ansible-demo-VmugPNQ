@@ -22,3 +22,11 @@ $ ansible-playbook delete-vmware-guest.yaml
 - Delete the VM
 - Delete the VM Folder
 - Delete the Resource Pool
+
+# To take a snapshot of the VM:
+
+$ ansible-playbook snapshot-vmware-guest.yaml
+
+# Following Steps will be performed:
+- Prompt for the VM name
+- Take an in memory snapshot of the VM 
