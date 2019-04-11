@@ -1,18 +1,24 @@
 # ansible-demo-VmugPNQ
-This is for ansible demo at VMUG Pune to deploy vmware guest on VMware 6.7 platform.
 
-Available playbooks:
+This ansible playbook will help to deploy vmware guest on VMware vCenter Server.
 
-# tree ansible-demo-VmugPNQ/
-ansible-demo-VmugPNQ/
-├── answer-del.yaml
-├── answer.yaml
-├── delete-vmware-guest.yaml
-├── deploy-vmware-guest.yaml
-└── roles
-    ├── vm-delete
-    │   └── tasks
-    │       └── main.yaml
-    └── vm-deploy
-        └── tasks
-            └── main.yaml
+# To deploy the VM:
+
+$ ansible-playbook deploy-vmware-guest.yaml
+
+Following Steps will be performed:
+    - Create a VM folder
+	- Create a Resource Pool
+	- Deploy the VM
+	- Map the IP and Configure the FQDN
+
+
+# To delete the VM:
+
+$ ansible-playbook delete-vmware-guest.yaml
+
+Following Steps will be performed:
+    - Take the input of VM name
+	- Delete the VM
+	- Delete the VM Folder
+	- Delete the Resource Pool
